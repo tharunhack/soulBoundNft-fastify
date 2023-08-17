@@ -1,65 +1,73 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import * as mysql from "mysql";
 import dotenv from "dotenv";
+import { checkAndInsertAddress } from "../whitelistValid";
 dotenv.config();
 
-const dbConfig = {
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "soulbound",
-};
 
-const connection = mysql.createConnection(dbConfig);
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to database:", err);
-    return;
-  }
-
-  console.log("Connected to the database.");
-});
+function isValidAddressFormat(address: string): boolean {
+  const addressPattern = /^0x[0-9a-fA-F]+$/;
+  return addressPattern.test(address);
+}
 
 
 export default async function whitelist(fastify: FastifyInstance) {
   fastify.get(
     "/",
     async function (
-      request: FastifyRequest<{ Querystring: { address: any } }>,
+      request: FastifyRequest<{ Querystring: { address: string } }>,
       reply: FastifyReply
     ) {
+      const { address } = request.query;
+
+      if (!address) {
+        return reply.code(400).send({ error: "Missing address parameter" });
+      }
+      if (!isValidAddressFormat(address)) {
+        return reply.code(400).send({error :"Invalid address format"});
+      }
+      if (address.length !== 42) {
+        return reply.code(400).send({ error: "Invalid address the length should be in EVM address format" });
+      }
+
       try {
-        const { address } = request.query;
+        const result = await checkAndInsertAddress(address);
 
-        if (!address) {
-          reply.code(400).send({ error: "Missing address parameter" });
-          return;
-        }
-
-        const query =
-          "SELECT COUNT(*) AS count FROM soulboundnft WHERE address = ?";
-        connection.query(query, [address], (error, results) => {
-          if (error) {
-            console.error("Database query error:", error);
-            reply.code(500).send({ error: "Database query error" });
-            return;
-          }
-          const count = results[0].count;
-          console.log("count: ", count);
-          
-          if (count > 0) {
-            console.log("count: ", count);
-            console.log("true");
-            reply.send({ data: true });
+        if (result.exists) {
+          if (result.isEligible) {
+            reply
+              .code(200)
+              .send({
+                message: "Address is already in the database and is eligible.",
+              });
           } else {
-            console.log("false");
-            reply.send({ data: false });
+            reply
+              .code(400)
+              .send({
+                message:
+                  "Address is already in the database but is not eligible.",
+              });
           }
-        });
-      } catch (error) {
-        console.error("Server error:", error);
-        reply.code(500).send({ error: "Server error" });
+        } else {
+          reply
+            .code(200)
+            .send({
+              message: "Address is successfully added to the database.",
+            });
+        }
+      } catch (error: any) {
+        if (error.code === "ER_DUP_ENTRY") {
+          reply
+            .code(400)
+            .send({ message: "Address already exists in the database." });
+        } else {
+          reply.code(500).send({ message: "Internal server error." });
+        }
       }
     }
   );
 }
+        
+
+
+
+

@@ -759,10 +759,10 @@ fast-uri@^2.0.0, fast-uri@^2.1.0:
 
 fastify-tsconfig@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npmjs.org/fastify-tsconfig/-/fastify-tsconfig-1.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/fastify-tsconfig/-/fastify-tsconfig-1.0.1.tgz#ec90e45fa8aa72b81178757bd5940c7875037639"
   integrity sha512-BXkTG3JYcjJb3xX5R5FcE9ciscV/h7YtmnkiSaNAONd1g6ooMSN/4GWfhA8hnS6SRZFYBBxsn8719Mj9lbCOtA==
 
-fastify@^4.18.0:
+fastify@^4.21.0:
   version "4.21.0"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.21.0.tgz#82f4272310c0fb7733a1a70605c57bdd1de938f2"
   integrity sha512-tsu4bcwE4HetxqW8prA5fbC9bKHMYDp7jGEDWyzK1l90a3uOaLoIcQbdGcWeODNLVJviQnzh1wvIjTZE3MJFEg==
@@ -1291,6 +1291,7 @@ sqlstring@2.3.1:
   integrity sha512-ooAzh/7dxIG5+uDik1z/Rd1vli0+38izZhGzSa34FwR7IbelPWCCKSNIl8jlL/F7ERvy8CB2jNeM1E9i9mXMAQ==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -1323,6 +1324,7 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
