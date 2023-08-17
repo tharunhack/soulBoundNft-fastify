@@ -8,10 +8,10 @@ const contractAddress = process.env.CONTRACT_ADDRESS || "";
 
 const privateKey = process.env.PRIVATEKEY || "";
 
-const apikey = process.env.API_KEY || "";
+// const apikey = process.env.API_KEY || "";
 
 const provider = new ethers.providers.JsonRpcProvider(
-  `https://polygon-mumbai.g.alchemy.com/v2/${apikey}`,
+  "https://rpc.ankr.com/polygon_mumbai"
 );
 const wallet = new ethers.Wallet(privateKey, provider);
 

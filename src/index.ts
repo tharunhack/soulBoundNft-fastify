@@ -6,5 +6,6 @@ app.listen({ port: FASTIFY_PORT });
 
 console.log(`🚀  Fastify server running on port http://localhost:${FASTIFY_PORT}`);
 console.log(`Route user: /whitelist`);
+console.log(`Route user: /mint`);
 
 
