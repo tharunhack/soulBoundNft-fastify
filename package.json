@@ -18,7 +18,7 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "@types/mysql": "^2.15.21",
+    "@types/mysql": "^2.15.23",
     "@types/node": "latest",
     "cross-env": "^7.0.3",
     "fastify-tsconfig": "^1.0.1",
